@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -10,6 +11,7 @@ import 'package:whereby_app/core/app_theme.dart';
 import 'package:whereby_app/data_servise/repository/secure_storage.dart';
 import 'package:whereby_app/data_servise/repository/user_repository.dart';
 import 'package:whereby_app/modules/auth_module/auth_cubit.dart';
+import 'package:whereby_app/modules/auth_module/screen.dart';
 import 'package:whereby_app/modules/chime_module/chime_sdk.dart';
 import 'package:whereby_app/modules/chime_module/cubit.dart';
 import 'package:whereby_app/modules/home_module/home_cubit/home_cubit.dart';
@@ -50,6 +52,7 @@ class App extends StatelessWidget {
                 BlocProvider(
                   create: (context) => WaitingRoomCubit(
                     AuthRepository(SecureStorageManager.of(context)),
+                    FirebaseDatabase.instance.ref(),
                   ),
                   child: const MeetingScreen(),
                 ),
@@ -74,6 +77,10 @@ class App extends StatelessWidget {
                 localizationsDelegates: AppLocale.localizationsDelegates,
                 themeMode: context.watch<AppCubit>().state.themeMode,
                 theme: AppThemes.light,
+                // routes: {
+                //   '/joinMeeting': (_) => JoinMeetingView(),
+                //   '/meeting': (_) => const MeetingView(),
+                // },
                 darkTheme: AppTheme.darkTheme,
               ),
             ),
@@ -109,8 +116,8 @@ class _StartScreenState extends State<_StartScreen> {
   Widget _buildChild(BuildContext context) {
     final appState = context.watch<AppCubit>().state;
 
-    // return const AuthScreen();
-    return const OnboardingScreen();
+    return const AuthScreen();
+    // return const OnboardingScreen();
   }
 
   @override

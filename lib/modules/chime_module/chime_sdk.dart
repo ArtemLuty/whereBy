@@ -1,10 +1,7 @@
 import 'dart:async';
-import 'dart:convert';
-import 'package:aws_chime_api/chime-2018-05-01.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:whereby_app/api/chime_api.dart';
-import 'package:whereby_app/api/wordpress_client.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:whereby_app/constants/colors.dart';
 import 'package:whereby_app/modules/chime_module/chime_screen.dart';
 import 'package:whereby_app/modules/chime_module/cubit.dart';
@@ -27,13 +24,12 @@ class _MeetingScreenState extends State<MeetingScreen> {
   String _attendeeId = '';
   List<dynamic> attendeeResponse = [];
   bool _isMeetingJoined = false;
-  late Chime _chime;
+  // late Chime _chime;
   String _errorMessage = '';
 
   @override
   void initState() {
     super.initState();
-    _chime = Chime(region: 'us-west-1');
     context.read<WaitingRoomCubit>().init();
     startTimer();
   }
@@ -74,150 +70,125 @@ class _MeetingScreenState extends State<MeetingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<WaitingRoomCubit, WaitingRoomState>(
-      builder: (context, state) {
-        return SafeArea(
-          child: Scaffold(
-            backgroundColor: const Color.fromARGB(31, 200, 199, 199),
-            appBar: AppBar(
-              toolbarHeight: 60,
-              leadingWidth: 80,
-              leading: IconButton(
-                icon: Image.asset(
-                  'assets/png/logo_app_bar.png',
-                ),
-                onPressed: () {},
-              ),
-              actions: [
-                IconButton(
-                  icon: const Icon(Icons.menu),
+    return BlocListener<WaitingRoomCubit, WaitingRoomState>(
+      listener: (context, state) {
+        _handleRoomIdChange(context, state);
+      },
+      child: BlocBuilder<WaitingRoomCubit, WaitingRoomState>(
+        builder: (context, state) {
+          return SafeArea(
+            child: Scaffold(
+              backgroundColor: const Color.fromARGB(31, 200, 199, 199),
+              appBar: AppBar(
+                toolbarHeight: 60,
+                leadingWidth: 80,
+                leading: IconButton(
+                  icon: Image.asset(
+                    'assets/png/logo_app_bar.png',
+                  ),
                   onPressed: () {},
                 ),
-              ],
-            ),
-            body: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 0.0),
-              child: Center(
-                child: state.isLoading
-                    ? const CircularProgressIndicator()
-                    : _errorMessage.isNotEmpty
-                        ? Text(
-                            _errorMessage,
-                            style: const TextStyle(
-                                color: Colors.red, fontSize: 18),
-                          )
-                        : Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Spacer(),
-                              const Text(
-                                'Next speaking session\nstarts in:',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  color: Colors.black54,
-                                ),
-                              ),
-                              const SizedBox(height: 20),
-                              Text(
-                                formatDuration(duration),
-                                style: const TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: AppButton(
-                                  'Join Meeting',
-                                  onTap: () async {
-                                    context
-                                        .read<WaitingRoomCubit>()
-                                        .getSession();
-
-                                    // if (_isMeetingJoined) {
-                                    //   Navigator.of(context).pushReplacement(
-                                    //     MaterialPageRoute(
-                                    //       builder: (context) =>
-                                    //           ConnectionScreen(
-                                    //         meetingId: _meetingId,
-                                    //         attendeeId: _attendeeId,
-                                    //         attendees: attendeeResponse,
-                                    //         cards: [],
-                                    //       ),
-                                    //     ),
-                                    //   );
-                                    // }
-                                    // );
-                                    connectWpClients();
-                                    Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(
-                                        builder: (context) => ConnectionScreen(
-                                          meetingId: _meetingId,
-                                          attendeeId: _attendeeId,
-                                          attendees: attendeeResponse,
-                                          cards: [],
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  color: ColorConstants.mainText,
-                                  textColor: Colors.white,
-                                  height: 48,
-                                ),
-                              ),
-                              // const Padding(
-                              //   padding: EdgeInsets.all(12.0),
-                              //   child: AppButton(
-                              //     'Connect API',
-                              //     onTap: connectWpAPI,
-                              //     color: ColorConstants.mainText,
-                              //     textColor: Colors.white,
-                              //     height: 48,
-                              //   ),
-                              // ),
-                              // const Padding(
-                              //   padding: EdgeInsets.all(12.0),
-                              //   child: AppButton(
-                              //     'Client',
-                              //     onTap: connectWpClients,
-                              //     color: ColorConstants.mainText,
-                              //     textColor: Colors.white,
-                              //     height: 48,
-                              //   ),
-                              // ),
-                              const Spacer(),
-                              const SizedBox(height: 40),
-                              ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.black,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 40, vertical: 10),
-                                ),
-                                child: const Text(
-                                  'Back to main',
+                actions: [
+                  IconButton(
+                    icon: SvgPicture.asset(
+                      'assets/svg/menu.svg',
+                    ),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+              body: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 0.0),
+                child: Center(
+                  child: state.isLoading
+                      ? const CircularProgressIndicator()
+                      : _errorMessage.isNotEmpty
+                          ? Text(
+                              _errorMessage,
+                              style: const TextStyle(
+                                  color: Colors.red, fontSize: 18),
+                            )
+                          : Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Spacer(),
+                                const Text(
+                                  'Next speaking session\nstarts in:',
+                                  textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white,
+                                    fontSize: 24,
+                                    color: Colors.black54,
                                   ),
                                 ),
-                              ),
-                              const SizedBox(height: 20),
-                            ],
-                          ),
+                                const SizedBox(height: 20),
+                                Text(
+                                  formatDuration(duration),
+                                  style: const TextStyle(
+                                    fontSize: 28,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                // Padding(
+                                //   padding: const EdgeInsets.all(12.0),
+                                //   child: AppButton(
+                                //     'Join Meeting',
+                                //     onTap: () async {
+                                //       context
+                                //           .read<WaitingRoomCubit>()
+                                //           .getSession();
+                                //     },
+                                //     color: ColorConstants.mainText,
+                                //     textColor: Colors.white,
+                                //     height: 48,
+                                //   ),
+                                // ),
+                                const Spacer(),
+                                const SizedBox(height: 40),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.black,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30),
+                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 40, vertical: 10),
+                                  ),
+                                  child: const Text(
+                                    'Back to main',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 20),
+                              ],
+                            ),
+                ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
+  }
+}
+
+void _handleRoomIdChange(BuildContext context, WaitingRoomState state) {
+  if (state.meetingData != null &&
+      state.attendeeData != null &&
+      state.readyForCall) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => ConnectionScreen(),
+        ),
+      );
+    });
   }
 }

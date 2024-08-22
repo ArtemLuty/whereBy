@@ -13,7 +13,7 @@ class AuthRepository {
     String login,
     String password,
   ) async {
-    const String loginUrl = 'https://test.wtalk.space/wp-json/user/login';
+    const String loginUrl = 'https://test.wetalk.co/wp-json/user/login';
 
     final loginResponse = await http.post(
       Uri.parse(loginUrl),

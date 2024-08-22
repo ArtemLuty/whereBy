@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:whereby_app/constants/colors.dart';
+import 'package:whereby_app/modules/chime_module/cubit.dart';
 import 'package:whereby_app/modules/home_module/home_cubit/home_cubit.dart';
 import 'package:whereby_app/modules/home_module/home_screen.dart';
-
-//       routes: {
-//         '/home': (context) => HomePage(),
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -12,46 +12,59 @@ class OnboardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Add your onboarding content here
-
-            const Spacer(),
-            Padding(
-              padding: const EdgeInsets.all(80.0),
-              child: SizedBox(
-                width: 148,
-                height: 48,
-                child: ElevatedButton(
-                  onPressed: () {
-                    context.read<HomeCubit>().awaitingTime();
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const HomeScreen(),
-                      ),
-                    );
-                    // Navigator.pushNamed(context, '/home');
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                          24), // Half of height for full rounding
-                    ),
+      backgroundColor: Color.fromARGB(255, 235, 234, 252),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 24.0),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Spacer(),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  // height: 25,
+                  child: SvgPicture.asset(
+                    'assets/svg/onbord!_image.svg',
                   ),
-                  child: const Text(
-                    'Skip',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
+                ),
+              ),
+              const Spacer(),
+              Padding(
+                padding: const EdgeInsets.all(80.0),
+                child: SizedBox(
+                  width: 148,
+                  height: 48,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      context.read<HomeCubit>().awaitingTime();
+                      context.read<WaitingRoomCubit>().init();
+                      context.read<WaitingRoomCubit>().workCondition();
+
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const HomeScreen(),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: ColorConstants.buttonColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                    ),
+                    child: const Text(
+                      'Skip',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

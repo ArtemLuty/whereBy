@@ -1,6 +1,5 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
 import 'package:whereby_app/data_servise/data_model/card.dart';
 import 'package:whereby_app/data_servise/repository/secure_storage.dart';
 
@@ -20,13 +19,13 @@ Future<List<UserCard>> fetchCards(cardId) async {
   final headers = {'Authorization': basicAuth};
 
   final response = await http.get(
-    Uri.parse('https://wetalk.co/wp-json/wetalk/v1/cards?ids=$cardId'),
+    Uri.parse('https://test.wetalk.co/wp-json/wetalk/v1/cards?ids=$cardId'),
     headers: headers,
   );
 
   if (response.statusCode == 200) {
     final List<dynamic> jsonResponse = json.decode(response.body);
-    print("${response.body}");
+    print("Card is load${response.body}");
     return jsonResponse.map((cardJson) => UserCard.fromJson(cardJson)).toList();
   } else {
     throw Exception(
@@ -34,17 +33,54 @@ Future<List<UserCard>> fetchCards(cardId) async {
   }
 }
 
-Future<void> fetchUsers() async {
-  // final userId = secureManager.getUserId();
-  final response = await http.get(
-    Uri.parse('https://test.wtalk.space/wp-json/get/users?id=13083'),
-    headers: headers,
-  );
-  if (response.statusCode == 200) {
-    print('UsersWP: ${response.body}');
-  } else {
-    print(
-        'Failed to load usersWP: ${response.statusCode}, ${response.reasonPhrase}');
+// Future<void> fetchUsers() async {
+//   // final userId = secureManager.getUserId();
+//   final response = await http.get(
+//     Uri.parse('https://test.wetalk.co/wp-json/get/users?id=13083'),
+//     headers: headers,
+//   );
+//   if (response.statusCode == 200) {
+//     print('UsersWP: ${response.body}');
+//   } else {
+//     print(
+//         'Failed to load usersWP: ${response.statusCode}, ${response.reasonPhrase}');
+//   }
+// }
+
+Future<void> nextCards(
+    String roomId, String cardId, String userToken, String cookie) async {
+  // Prepare the body of the request
+  Map<String, String> body = {
+    'roomId': roomId,
+    'cardId': cardId,
+  };
+
+  // Prepare the headers
+  Map<String, String> headers = {
+    'Authorization': 'Bearer $userToken',
+    'Cookie': cookie,
+    'Content-Type': 'application/json',
+  };
+
+  try {
+    // Make the POST request
+    final response = await http.post(
+      Uri.parse('https://test.wetalk.co/wp-json/room/markCardAsDone'),
+      headers: headers,
+      body: jsonEncode(body),
+    );
+
+    // Handle the response
+    if (response.statusCode == 200) {
+      print('nextCards: ${response.body}');
+    } else {
+      print(
+          'Failed to load nextCards: ${response.statusCode}, ${response.reasonPhrase}');
+      print('Response body: ${response.body}');
+    }
+  } catch (e) {
+    // Handle any exceptions that might occur
+    print('Error occurred: $e');
   }
 }
 
@@ -88,5 +124,5 @@ void connectWpClients() async {
   // }
 
   // await fetchCards();
-  await fetchUsers();
+  // await fetchUsers();
 }

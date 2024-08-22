@@ -17,7 +17,8 @@ class ColorConstants {
   // // text
   static const Color hintText = Color(0xFF878CA1);
   static const Color mainText = Color(0xff0E1226);
-  // static const Color headlineText = Color(0xFF0A1D33);
+
+  static const Color onbordBackgraund = Color(0xFFCFCBFF);
   // static const Color buttonText = Color(0xFFFFFFFF);
   // static const Color errorText = Color(0xFFED856F);
   // static const Color lableText = Color(0xff274666);

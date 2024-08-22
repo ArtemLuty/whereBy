@@ -1,6 +1,6 @@
 class WaitingRoomData {
   final int waitingRoomUsers;
-  final Map<String, UserSummary> users;
+  final Map<String, Users> users;
   final Map<String, UserDetail> waitingRoom;
   final List<RoomDetail> rooms;
 
@@ -15,12 +15,17 @@ class WaitingRoomData {
     var totalStatsMap = json['totalStats'] as Map<Object?, Object?>?;
     int waitingRoomUsers = totalStatsMap?['waitingRoomUsers'] as int? ?? 0;
 
-    var usersMap = json['users'] as Map<Object?, Object?>?;
-    var users = usersMap?.map((key, value) {
-          return MapEntry(key as String,
-              UserSummary.fromJson(value as Map<Object?, Object?>));
-        }) ??
-        {};
+    Map<Object?, Object?>? usersMapRaw =
+        json['users'] as Map<Object?, Object?>?;
+    Map<String, Users> users = {};
+
+    if (usersMapRaw != null) {
+      usersMapRaw.forEach((key, value) {
+        if (key is String && value is Map<Object?, Object?>) {
+          users[key] = Users.fromJson(Map<String, dynamic>.from(value));
+        }
+      });
+    }
 
     var waitingRoomMap = json['waitingRoom'] as Map<Object?, Object?>?;
     var waitingRoom = waitingRoomMap?.map((key, value) {
@@ -56,6 +61,34 @@ class UserSummary {
     return UserSummary(
       inWaitingRoom: json['inWaitingRoom'] as bool? ?? false,
     );
+  }
+}
+
+class Users {
+  final String presenceStatus;
+  final String attendeeId;
+  final String roomId;
+
+  Users({
+    required this.presenceStatus,
+    required this.attendeeId,
+    required this.roomId,
+  });
+
+  factory Users.fromJson(Map<String, dynamic> json) {
+    return Users(
+      presenceStatus: json['presenceStatus'] as String? ?? 'offline',
+      attendeeId: json['attendeeId'] as String? ?? '',
+      roomId: json['roomId'] as String? ?? '',
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'presenceStatus': presenceStatus,
+      'attendeeId': attendeeId,
+      'roomId': roomId,
+    };
   }
 }
 

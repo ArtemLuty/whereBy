@@ -9,7 +9,7 @@ class UserRepository {
   Future<Duration> joinMeetingTime() async {
     final timeResponse = await http.get(
       Uri.parse(
-          'https://test.wtalk.space/wp-json/matching/scheduler/executionData'),
+          'https://test.wetalk.co/wp-json/matching/scheduler/executionData'),
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         'Authorization': basicAuth,
