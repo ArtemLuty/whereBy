@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "620399691169",
+    "firebase_url": "https://wetalk2-server-test-default-rtdb.firebaseio.com",
+    "project_id": "wetalk2-server-test",
+    "storage_bucket": "wetalk2-server-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:620399691169:android:e75c65949a03b12ca7f7e0",
+        "android_client_info": {
+          "package_name": "com.wetalk.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANuI9EPh3NAe9jzuimwaj1ud1lrao_CdU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -28,9 +28,7 @@ class WaitingRoomCubit extends Cubit<WaitingRoomState> {
       await joinAwaitingRoom(userToken, cookie);
 
       final logInUserId = await authRepository.secureManager.getUserId();
-      // Update user's presence status to online
       await updatePresenceStatus(userToken, true, logInUserId);
-
       final data = await fetchDataFromFirebase();
       final waitingRoomData = WaitingRoomData.fromJson(data);
       final cards = await fetchCards(waitingRoomData.rooms.isNotEmpty
@@ -47,7 +45,6 @@ class WaitingRoomCubit extends Cubit<WaitingRoomState> {
       listenToCardIdChanges(
           database, waitingRoomData.users[logInUserId]!.roomId, (newCardId) {
         _onCardIdChange(newCardId);
-        // listenToUserRoomChanges(database, logInUserId, this);
       });
     } catch (e) {
       print('Error in init: $e');
@@ -80,7 +77,10 @@ class WaitingRoomCubit extends Cubit<WaitingRoomState> {
       // listenToUserRoomChanges(database, logInUserId, this);
       // listenToCardIdChanges(
       //     database, waitingRoomData.users[logInUserId]!.roomId, (newCardId) {
-      //   _onCardIdChange(newCardId);
+      listenToCardIdChanges(
+          database, waitingRoomData.users[logInUserId]!.roomId, (newCardId) {
+        _onCardIdChange(newCardId);
+      });
       // });
     } catch (e) {
       print('Error in init: $e');
@@ -100,17 +100,15 @@ class WaitingRoomCubit extends Cubit<WaitingRoomState> {
     workCondition();
   }
 
+  Future<void> deleteUserFromRoom() async {
+    final userToken = await authRepository.secureManager.getUserToken();
+    final cookie = await authRepository.secureManager.getFcmToken();
+    await deleteUserRoom(userToken, cookie);
+    cleanState();
+  }
+
   void _onCardIdChange(String newCardId) async {
     emit(state.copyWith(isLoading: true));
-    // try {
-    //   final userToken = await authRepository.secureManager.getUserToken();
-    //   final cards = await fetchCards(newCardId);
-
-    //   emit(state.copyWith(
-    //     isLoading: false,
-    //     cards: cards,
-    //   ));
-    // }
     try {
       final userToken = await authRepository.secureManager.getUserToken();
       final logInUserId = await authRepository.secureManager.getUserId();
@@ -140,6 +138,36 @@ class WaitingRoomCubit extends Cubit<WaitingRoomState> {
       getSession();
     }
     // Trigger session update after room ID change
+  }
+
+  void cleanState() async {
+    emit(state.copyWith(isLoading: true));
+    try {
+      final userToken = await authRepository.secureManager.getUserToken();
+      final logInUserId = await authRepository.secureManager.getUserId();
+      await updatePresenceStatus(userToken, false, logInUserId);
+
+      // Cancel any ongoing subscriptions
+      await cardIdSubscription?.cancel();
+      cardIdSubscription = null;
+
+      emit(WaitingRoomState(
+        isLoading: false,
+        data: null, // Reset to initial state
+        cards: [], // Clear the cards list
+        logInUserId: null, // Clear the user ID
+        meetingData: null, // Clear the meeting data
+        attendeeData: null, // Clear the attendee data
+        readyForCall: false, // Reset the call readiness
+        errorMessage: '', // Clear any error messages
+      ));
+    } catch (e) {
+      print('Error in cleanState: $e');
+      emit(state.copyWith(
+        isLoading: false,
+        errorMessage: 'Failed to clean state: $e',
+      ));
+    }
   }
 
   void getSession() async {
@@ -189,9 +217,9 @@ class WaitingRoomCubit extends Cubit<WaitingRoomState> {
     }
   }
 
-  @override
-  Future<void> close() {
-    cardIdSubscription?.cancel();
-    return super.close();
-  }
+  // @override
+  // Future<void> close() {
+  //   cardIdSubscription?.cancel();
+  //   return super.close();
+  // }
 }

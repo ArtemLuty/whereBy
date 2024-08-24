@@ -28,8 +28,10 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Need access to the camera for video conferencing</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Need access to the microphone for audio conferencing</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+ <string>This app requires access to the photo library for saving user-selected images.</string>
+ <key>NSMicrophoneUsageDescription</key>
+ <string>We need access to your microphone for audio functionality.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

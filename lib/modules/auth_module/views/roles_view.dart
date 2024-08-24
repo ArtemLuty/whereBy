@@ -6,7 +6,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:whereby_app/constants/colors.dart';
 import 'package:whereby_app/modules/auth_module/auth.state.dart';
 import 'package:whereby_app/modules/auth_module/auth_cubit.dart';
-import 'package:whereby_app/modules/home_module/home_screen.dart';
 import 'package:whereby_app/modules/home_module/onboarding_screen.dart';
 import 'package:whereby_app/utils/fonts.dart';
 import 'package:whereby_app/widgets/app_button.dart';
@@ -254,7 +253,8 @@ class _RolesViewState extends State<RolesView> {
     final Uri url = Uri.parse('https://test.wetalk.co/sign-up/');
 
     if (await canLaunchUrl(url)) {
-      await launchUrl(url, mode: LaunchMode.externalApplication);
+      await launchUrl(url,
+          mode: LaunchMode.platformDefault); // Use platformDefault
     } else {
       throw 'Could not launch $url';
     }

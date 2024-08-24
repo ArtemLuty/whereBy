@@ -201,22 +201,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.18.0"
-  connectivity_plus:
-    dependency: transitive
-    description:
-      name: connectivity_plus
-      sha256: "224a77051d52a11fbad53dd57827594d3bd24f945af28bd70bab376d68d437f0"
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.0.2"
-  connectivity_plus_platform_interface:
-    dependency: transitive
-    description:
-      name: connectivity_plus_platform_interface
-      sha256: cf1d1c28f4416f8c654d7dc3cd638ec586076255d407cef3ddbdaf178272a71a
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.2.4"
   convert:
     dependency: transitive
     description:
@@ -273,14 +257,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.6"
-  dbus:
-    dependency: transitive
-    description:
-      name: dbus
-      sha256: "365c771ac3b0e58845f39ec6deebc76e3276aa9922b0cc60840712094d9047ac"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.7.10"
   diffutil_dart:
     dependency: transitive
     description:
@@ -361,14 +337,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.0"
-  file_picker:
-    dependency: "direct main"
-    description:
-      name: file_picker
-      sha256: "1bbf65dd997458a08b531042ec3794112a6c39c07c37ff22113d2e7e4f81d4e4"
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.2.1"
   file_selector_linux:
     dependency: transitive
     description:
@@ -542,14 +510,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "9.3.0"
-  flutter_hooks:
-    dependency: transitive
-    description:
-      name: flutter_hooks
-      sha256: cde36b12f7188c85286fba9b38cc5a902e7279f36dd676967106c041dc9dde70
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.20.5"
   flutter_link_previewer:
     dependency: transitive
     description:
@@ -709,78 +669,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.2.1"
-  gql:
-    dependency: transitive
-    description:
-      name: gql
-      sha256: "8ecd3585bb9e40d671aa58f52575d950670f99e5ffab18e2b34a757e071a6693"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.1-alpha+1717789143880"
-  gql_dedupe_link:
-    dependency: transitive
-    description:
-      name: gql_dedupe_link
-      sha256: "10bee0564d67c24e0c8bd08bd56e0682b64a135e58afabbeed30d85d5e9fea96"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.4-alpha+1715521079596"
-  gql_error_link:
-    dependency: transitive
-    description:
-      name: gql_error_link
-      sha256: "93901458f3c050e33386dedb0ca7173e08cebd7078e4e0deca4bf23ab7a71f63"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0+1"
-  gql_exec:
-    dependency: transitive
-    description:
-      name: gql_exec
-      sha256: "394944626fae900f1d34343ecf2d62e44eb984826189c8979d305f0ae5846e38"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.1-alpha+1699813812660"
-  gql_http_link:
-    dependency: transitive
-    description:
-      name: gql_http_link
-      sha256: ef6ad24d31beb5a30113e9b919eec20876903cc4b0ee0d31550047aaaba7d5dd
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.0"
-  gql_link:
-    dependency: transitive
-    description:
-      name: gql_link
-      sha256: "70fd5b5cbcc50601679f4b9fea3bcc994e583f59cfec7e1fec11113074b1a565"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.1-alpha+1717789143896"
-  gql_transform_link:
-    dependency: transitive
-    description:
-      name: gql_transform_link
-      sha256: "0645fdd874ca1be695fd327271fdfb24c0cd6fa40774a64b946062f321a59709"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0"
-  graphql:
-    dependency: transitive
-    description:
-      name: graphql
-      sha256: "62f31433ba194eda7b81a812a83c3d9560766cec5ac0210ea4a3e677c91b8df4"
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.2.0-beta.8"
-  graphql_flutter:
-    dependency: "direct main"
-    description:
-      name: graphql_flutter
-      sha256: "39b5e830bc654ab02c5b776c31675841d1a8c95840fdd284efba713b1d47e65d"
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.2.0-beta.6"
   graphs:
     dependency: transitive
     description:
@@ -1053,22 +941,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
-  nm:
-    dependency: transitive
-    description:
-      name: nm
-      sha256: "2c9aae4127bdc8993206464fcc063611e0e36e72018696cd9631023a31b24254"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.5.0"
-  normalize:
-    dependency: transitive
-    description:
-      name: normalize
-      sha256: "8a60e37de5b608eeaf9b839273370c71ebba445e9f73b08eee7725e0d92dbc43"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.8.2+1"
   octo_image:
     dependency: transitive
     description:
@@ -1077,14 +949,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
-  open_filex:
-    dependency: "direct main"
-    description:
-      name: open_filex
-      sha256: "74e2280754cf8161e860746c3181db2c996d6c1909c7057b738ede4a469816b8"
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.4.0"
   package_config:
     dependency: transitive
     description:
@@ -1161,42 +1025,50 @@ packages:
     dependency: "direct main"
     description:
       name: permission_handler
-      sha256: "5749ebeb7ec0c3865ea17e3eb337174b87747be816dab582c551e1aff6f6bbf3"
+      sha256: "18bf33f7fefbd812f37e72091a15575e72d5318854877e0e4035a24ac1113ecb"
       url: "https://pub.dev"
     source: hosted
-    version: "9.2.0"
+    version: "11.3.1"
   permission_handler_android:
     dependency: transitive
     description:
       name: permission_handler_android
-      sha256: a512e0fa8abcb0659d938ec2df93a70eb1df1fdea5fdc6d79a866bfd858a28fc
+      sha256: "76e4ab092c1b240d31177bb64d2b0bea43f43d0e23541ec866151b9f7b2490fa"
       url: "https://pub.dev"
     source: hosted
-    version: "9.0.2+1"
+    version: "12.0.12"
   permission_handler_apple:
     dependency: transitive
     description:
       name: permission_handler_apple
-      sha256: "99e220bce3f8877c78e4ace901082fb29fa1b4ebde529ad0932d8d664b34f3f5"
+      sha256: e6f6d73b12438ef13e648c4ae56bd106ec60d17e90a59c4545db6781229082a0
       url: "https://pub.dev"
     source: hosted
-    version: "9.1.4"
+    version: "9.4.5"
+  permission_handler_html:
+    dependency: transitive
+    description:
+      name: permission_handler_html
+      sha256: af26edbbb1f2674af65a8f4b56e1a6f526156bc273d0e65dd8075fab51c78851
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.3+2"
   permission_handler_platform_interface:
     dependency: transitive
     description:
       name: permission_handler_platform_interface
-      sha256: "6760eb5ef34589224771010805bea6054ad28453906936f843a8cc4d3a55c4a4"
+      sha256: fe0ffe274d665be8e34f9c59705441a7d248edebbe5d9e3ec2665f88b79358ea
       url: "https://pub.dev"
     source: hosted
-    version: "3.12.0"
+    version: "4.2.2"
   permission_handler_windows:
     dependency: transitive
     description:
       name: permission_handler_windows
-      sha256: cc074aace208760f1eee6aa4fae766b45d947df85bc831cde77009cdb4720098
+      sha256: "1a790728016f79a41216d88672dbc5df30e686e811ad4e698bfc51f76ad91f1e"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.3"
+    version: "0.2.1"
   petitparser:
     dependency: transitive
     description:

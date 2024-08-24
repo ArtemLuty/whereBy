@@ -77,17 +77,25 @@ class _MeetingScreenState extends State<MeetingScreen> {
       child: BlocBuilder<WaitingRoomCubit, WaitingRoomState>(
         builder: (context, state) {
           return SafeArea(
+            top: false,
+            bottom: false,
             child: Scaffold(
               backgroundColor: const Color.fromARGB(31, 200, 199, 199),
               appBar: AppBar(
+                backgroundColor: Colors.white,
                 toolbarHeight: 60,
                 leadingWidth: 80,
-                leading: IconButton(
-                  icon: Image.asset(
+                leading:
+                    // IconButton(
+                    //   icon:
+                    Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.asset(
                     'assets/png/logo_app_bar.png',
                   ),
-                  onPressed: () {},
                 ),
+                //   onPressed: () {},
+                // ),
                 actions: [
                   IconButton(
                     icon: SvgPicture.asset(
@@ -96,6 +104,15 @@ class _MeetingScreenState extends State<MeetingScreen> {
                     onPressed: () {},
                   ),
                 ],
+                bottom: PreferredSize(
+                  preferredSize:
+                      Size.fromHeight(2.0), // 2px height for the grey line
+                  child: Container(
+                    color: ColorConstants
+                        .borderLine, // Grey color for the bottom line
+                    height: 1.0, // Height of the grey line
+                  ),
+                ),
               ),
               body: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 0.0),
@@ -129,24 +146,13 @@ class _MeetingScreenState extends State<MeetingScreen> {
                                     color: Colors.black,
                                   ),
                                 ),
-                                // Padding(
-                                //   padding: const EdgeInsets.all(12.0),
-                                //   child: AppButton(
-                                //     'Join Meeting',
-                                //     onTap: () async {
-                                //       context
-                                //           .read<WaitingRoomCubit>()
-                                //           .getSession();
-                                //     },
-                                //     color: ColorConstants.mainText,
-                                //     textColor: Colors.white,
-                                //     height: 48,
-                                //   ),
-                                // ),
                                 const Spacer(),
                                 const SizedBox(height: 40),
                                 ElevatedButton(
                                   onPressed: () {
+                                    context
+                                        .read<WaitingRoomCubit>()
+                                        .deleteUserFromRoom();
                                     Navigator.pop(context);
                                   },
                                   style: ElevatedButton.styleFrom(
@@ -166,7 +172,7 @@ class _MeetingScreenState extends State<MeetingScreen> {
                                     ),
                                   ),
                                 ),
-                                const SizedBox(height: 20),
+                                const SizedBox(height: 50),
                               ],
                             ),
                 ),

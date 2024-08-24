@@ -29,11 +29,8 @@ Future<Map<String, dynamic>> fetchDataFromFirebase() async {
   DatabaseEvent event = await _database.child('/').once();
   if (event.snapshot.value != null) {
     final rawData = event.snapshot.value as Map<Object?, Object?>;
-
-    // Convert the raw data to a Map<String, dynamic>
     final data =
         rawData.map((key, value) => MapEntry(key as String, value as dynamic));
-
     return data;
   } else {
     throw Exception('No data found');

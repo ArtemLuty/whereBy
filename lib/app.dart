@@ -15,7 +15,7 @@ import 'package:whereby_app/modules/auth_module/screen.dart';
 import 'package:whereby_app/modules/chime_module/chime_sdk.dart';
 import 'package:whereby_app/modules/chime_module/cubit.dart';
 import 'package:whereby_app/modules/home_module/home_cubit/home_cubit.dart';
-import 'package:whereby_app/modules/home_module/onboarding_screen.dart';
+// import 'package:whereby_app/modules/home_module/onboarding_screen.dart';
 import 'package:whereby_app/setup.dart';
 import 'package:whereby_app/utils/theme_manager.dart';
 import 'package:whereby_app/widgets/splash_screen.dart';
@@ -117,7 +117,6 @@ class _StartScreenState extends State<_StartScreen> {
     final appState = context.watch<AppCubit>().state;
 
     return const AuthScreen();
-    // return const OnboardingScreen();
   }
 
   @override
