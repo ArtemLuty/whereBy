@@ -25,13 +25,33 @@ Future<List<UserCard>> fetchCards(cardId) async {
 
   if (response.statusCode == 200) {
     final List<dynamic> jsonResponse = json.decode(response.body);
-    print("Card is load${response.body}");
+    print("Card is load200${response.body}");
     return jsonResponse.map((cardJson) => UserCard.fromJson(cardJson)).toList();
   } else {
     throw Exception(
         'Failed to load cards: ${response.statusCode}, ${response.reasonPhrase}');
   }
 }
+
+// Future<List<UserCard>> fetchNextCards(nextCardId) async {
+//   final String basicAuth =
+//       'Basic ${base64Encode(utf8.encode('api:UQP0rBvY2IzQOzXqahcn19kz'))}';
+//   final headers = {'Authorization': basicAuth};
+
+//   final response = await http.get(
+//     Uri.parse('https://test.wetalk.co/wp-json/wetalk/v1/cards?ids=$nextCardId'),
+//     headers: headers,
+//   );
+
+//   if (response.statusCode == 200) {
+//     final List<dynamic> jsonResponse = json.decode(response.body);
+//     print("Card is load${response.body}");
+//     return jsonResponse.map((cardJson) => UserCard.fromJson(cardJson)).toList();
+//   } else {
+//     throw Exception(
+//         'Failed to load cards: ${response.statusCode}, ${response.reasonPhrase}');
+//   }
+// }
 
 // Future<void> fetchUsers() async {
 //   // final userId = secureManager.getUserId();
@@ -72,7 +92,7 @@ Future<void> nextCards(
 
     // Handle the response
     if (response.statusCode == 200) {
-      print('nextCards 200: ${response.body}');
+      print('nextCards---- 200: ${response.body}');
     } else {
       print(
           'Failed to load nextCards: ${response.statusCode}, ${response.reasonPhrase}');
@@ -80,7 +100,7 @@ Future<void> nextCards(
     }
 
     if (response.statusCode == 201) {
-      print('nextCards 201: ${response.body}');
+      print('nextCards----- 201: ${response.body}');
     } else {
       print(
           'Failed to load nextCards: ${response.statusCode}, ${response.reasonPhrase}');
@@ -130,15 +150,15 @@ Future<void> deleteUserRoom(String userToken, String cookie) async {
   }
 }
 
-void connectWpClients() async {
-  // Base64 encoding for Basic Authentication
-  final String basicAuth =
-      'Basic ${base64Encode(utf8.encode('api:UQP0rBvY2IzQOzXqahcn19kz'))}';
+// void connectWpClients() async {
+//   // Base64 encoding for Basic Authentication
+//   final String basicAuth =
+//       'Basic ${base64Encode(utf8.encode('api:UQP0rBvY2IzQOzXqahcn19kz'))}';
 
-  // Define headers
-  final headers = {
-    'Authorization': basicAuth,
-  };
+//   // Define headers
+//   final headers = {
+//     'Authorization': basicAuth,
+//   };
 
   // Function to fetch cards
   // Future<void> fetchCards() async {
@@ -171,4 +191,4 @@ void connectWpClients() async {
 
   // await fetchCards();
   // await fetchUsers();
-}
+// }

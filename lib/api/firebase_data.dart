@@ -90,6 +90,8 @@ void listenToUserRoomChanges(
       String roomId = event.snapshot.value as String;
       print('Room ID changed to: $roomId');
       cubit.onRoomIdChange(roomId);
+    } else {
+      cubit.onRoomIdNull();
     }
   });
 }
@@ -127,13 +129,13 @@ void listenToCardIdChanges(DatabaseReference database, String roomId,
 //   });
 // }
 
-Future<void> addUserToWaitingRoom(
-  DatabaseReference database,
-  FirebaseWaitingRoomUser user,
-) async {
-  await database.child('waitingRoom/13083');
-  // await database.child('waitingRoom/${user.id}').set(user.toMap());
-}
+// Future<void> addUserToWaitingRoom(
+//   DatabaseReference database,
+//   FirebaseWaitingRoomUser user,
+// ) async {
+//   await database.child('waitingRoom/13083');
+//   // await database.child('waitingRoom/${user.id}').set(user.toMap());
+// }
 
 // extension on FirebaseWaitingRoomUser {
 //   Map<String, dynamic> toMap() {

@@ -1,8 +1,60 @@
+// class WaitingRoomData {
+//   final int waitingRoomUsers;
+//   final Map<String, Users> users;
+//   final Map<String, UserDetail> waitingRoom;
+//   final List<RoomDetail> rooms;
+
+//   WaitingRoomData({
+//     required this.waitingRoomUsers,
+//     required this.users,
+//     required this.waitingRoom,
+//     required this.rooms,
+//   });
+
+//   factory WaitingRoomData.fromJson(Map<Object?, Object?> json) {
+//     var totalStatsMap = json['totalStats'] as Map<Object?, Object?>?;
+//     int waitingRoomUsers = totalStatsMap?['waitingRoomUsers'] as int? ?? 0;
+
+//     Map<Object?, Object?>? usersMapRaw =
+//         json['users'] as Map<Object?, Object?>?;
+//     Map<String, Users> users = {};
+
+//     if (usersMapRaw != null) {
+//       usersMapRaw.forEach((key, value) {
+//         if (key is String && value is Map<Object?, Object?>) {
+//           users[key] = Users.fromJson(Map<String, dynamic>.from(value));
+//         }
+//       });
+//     }
+
+//     var waitingRoomMap = json['waitingRoom'] as Map<Object?, Object?>?;
+//     var waitingRoom = waitingRoomMap?.map((key, value) {
+//           return MapEntry(key as String,
+//               UserDetail.fromJson(value as Map<Object?, Object?>));
+//         }) ??
+//         {};
+
+//     // Handle the rooms data
+//     var roomsList =
+//         (json['rooms'] as Map<Object?, Object?>?)?.values.map((value) {
+//               return RoomDetail.fromJson(value as Map<Object?, Object?>);
+//             }).toList() ??
+//             <RoomDetail>[];
+
+//     return WaitingRoomData(
+//       waitingRoomUsers: waitingRoomUsers,
+//       users: users,
+//       waitingRoom: waitingRoom,
+//       rooms: roomsList,
+//     );
+//   }
+// }
+
 class WaitingRoomData {
   final int waitingRoomUsers;
   final Map<String, Users> users;
   final Map<String, UserDetail> waitingRoom;
-  final List<RoomDetail> rooms;
+  final Map<String, RoomDetail> rooms;
 
   WaitingRoomData({
     required this.waitingRoomUsers,
@@ -34,18 +86,22 @@ class WaitingRoomData {
         }) ??
         {};
 
-    // Handle the rooms data
-    var roomsList =
-        (json['rooms'] as Map<Object?, Object?>?)?.values.map((value) {
-              return RoomDetail.fromJson(value as Map<Object?, Object?>);
-            }).toList() ??
-            <RoomDetail>[];
+    // Handle the rooms as a Map<String, RoomDetail>
+    var roomsMap = json['rooms'] as Map<Object?, Object?>?;
+    Map<String, RoomDetail> rooms = {};
+    if (roomsMap != null) {
+      roomsMap.forEach((key, value) {
+        if (key is String && value is Map<Object?, Object?>) {
+          rooms[key] = RoomDetail.fromJson(value);
+        }
+      });
+    }
 
     return WaitingRoomData(
       waitingRoomUsers: waitingRoomUsers,
       users: users,
       waitingRoom: waitingRoom,
-      rooms: roomsList,
+      rooms: rooms,
     );
   }
 }

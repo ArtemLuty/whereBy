@@ -34,7 +34,8 @@ class _RolesViewState extends State<RolesView> {
           );
         } else if (state is AuthError) {
           Fluttertoast.showToast(
-            msg: "Login failed: ${state.message}",
+            msg: "Login failed: login or password not correct",
+            // ${state.message}",
             toastLength: Toast.LENGTH_LONG,
             gravity: ToastGravity.BOTTOM,
             backgroundColor: Colors.red,

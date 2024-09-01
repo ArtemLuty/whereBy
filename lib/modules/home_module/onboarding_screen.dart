@@ -48,7 +48,7 @@ class OnboardingScreen extends StatelessWidget {
                         status = await Permission.microphone.request();
                         context.read<HomeCubit>().awaitingTime();
                         context.read<WaitingRoomCubit>().init();
-                        context.read<WaitingRoomCubit>().workCondition();
+                        // context.read<WaitingRoomCubit>().workCondition();
 
                         Navigator.of(context).push(
                           MaterialPageRoute(
@@ -60,7 +60,7 @@ class OnboardingScreen extends StatelessWidget {
                       if (status.isGranted) {
                         // If permission is granted, proceed with the logic
                         context.read<HomeCubit>().awaitingTime();
-                        context.read<WaitingRoomCubit>().init();
+                        // context.read<WaitingRoomCubit>().init();
                         context.read<WaitingRoomCubit>().workCondition();
 
                         Navigator.of(context).push(
@@ -70,19 +70,19 @@ class OnboardingScreen extends StatelessWidget {
                         );
                       } else if (status.isPermanentlyDenied) {
                         // Handle the case where the permission is permanently denied
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: const Text(
-                                'Microphone permission is permanently denied. Please enable it from settings.'),
-                            action: SnackBarAction(
-                              label: 'Settings',
-                              onPressed: () async {
-                                // Open app settings
-                                await openAppSettings();
-                              },
-                            ),
-                          ),
-                        );
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //   SnackBar(
+                        //     content: const Text(
+                        //         'Microphone permission is permanently denied. Please enable it from settings.'),
+                        //     action: SnackBarAction(
+                        //       label: 'Settings',
+                        //       onPressed: () async {
+                        //         // Open app settings
+                        //         await openAppSettings();
+                        //       },
+                        //     ),
+                        //   ),
+                        // );
                       } else {
                         // Handle other cases like denied but not permanently denied
                         ScaffoldMessenger.of(context).showSnackBar(

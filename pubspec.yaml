@@ -46,6 +46,7 @@ dependencies:
   firebase_database: ^11.0.3
   flutter_aws_chime: ^1.1.0+1
   fluttertoast: ^8.2.8
+  # audio_session: ^0.1.8
 
 
 dev_dependencies:

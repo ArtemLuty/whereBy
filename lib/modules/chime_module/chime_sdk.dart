@@ -24,7 +24,6 @@ class _MeetingScreenState extends State<MeetingScreen> {
   String _attendeeId = '';
   List<dynamic> attendeeResponse = [];
   bool _isMeetingJoined = false;
-  // late Chime _chime;
   String _errorMessage = '';
 
   @override
@@ -105,12 +104,10 @@ class _MeetingScreenState extends State<MeetingScreen> {
                   ),
                 ],
                 bottom: PreferredSize(
-                  preferredSize:
-                      Size.fromHeight(2.0), // 2px height for the grey line
+                  preferredSize: Size.fromHeight(2.0),
                   child: Container(
-                    color: ColorConstants
-                        .borderLine, // Grey color for the bottom line
-                    height: 1.0, // Height of the grey line
+                    color: ColorConstants.borderLine,
+                    height: 1.0,
                   ),
                 ),
               ),
@@ -197,4 +194,8 @@ void _handleRoomIdChange(BuildContext context, WaitingRoomState state) {
       );
     });
   }
+  // if (!state.readyForCall) {
+  //   context.read<WaitingRoomCubit>().deleteUserFromRoom();
+  //   Navigator.pop(context);
+  // }
 }
