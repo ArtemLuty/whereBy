@@ -11,7 +11,7 @@ class ColorConstants {
   static const Color filledBorderColor = Color(0xffE9E9E9);
   static const Color backgroundColor = Color(0xFFF9F8F8);
   // // sammarys
-  // static const Color summaryDBlue = Color(0xff01254b);
+  static const Color summaryDBlue = Color(0xff878CA1);
   // static const Color summaryBlack = Color(0xFF01254b);
 
   // // text

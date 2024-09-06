@@ -7,6 +7,7 @@ import 'package:whereby_app/constants/colors.dart';
 import 'package:whereby_app/modules/auth_module/auth.state.dart';
 import 'package:whereby_app/modules/auth_module/auth_cubit.dart';
 import 'package:whereby_app/modules/home_module/onboarding_screen.dart';
+import 'package:whereby_app/modules/home_module/tap_bar_screen.dart';
 import 'package:whereby_app/utils/fonts.dart';
 import 'package:whereby_app/widgets/app_button.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -30,12 +31,12 @@ class _RolesViewState extends State<RolesView> {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
               builder: (context) => const OnboardingScreen(),
+              // builder: (context) => const BarScreen(),
             ),
           );
         } else if (state is AuthError) {
           Fluttertoast.showToast(
             msg: "Login failed: login or password not correct",
-            // ${state.message}",
             toastLength: Toast.LENGTH_LONG,
             gravity: ToastGravity.BOTTOM,
             backgroundColor: Colors.red,
@@ -254,8 +255,7 @@ class _RolesViewState extends State<RolesView> {
     final Uri url = Uri.parse('https://test.wetalk.co/sign-up/');
 
     if (await canLaunchUrl(url)) {
-      await launchUrl(url,
-          mode: LaunchMode.platformDefault); // Use platformDefault
+      await launchUrl(url, mode: LaunchMode.platformDefault);
     } else {
       throw 'Could not launch $url';
     }

@@ -194,8 +194,4 @@ void _handleRoomIdChange(BuildContext context, WaitingRoomState state) {
       );
     });
   }
-  // if (!state.readyForCall) {
-  //   context.read<WaitingRoomCubit>().deleteUserFromRoom();
-  //   Navigator.pop(context);
-  // }
 }

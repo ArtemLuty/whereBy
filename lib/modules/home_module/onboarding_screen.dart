@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:permission_handler/permission_handler.dart'; // Import the permission handler
+import 'package:permission_handler/permission_handler.dart';
 import 'package:whereby_app/constants/colors.dart';
 import 'package:whereby_app/modules/chime_module/cubit.dart';
 import 'package:whereby_app/modules/home_module/home_cubit/home_cubit.dart';

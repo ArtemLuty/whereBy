@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:whereby_app/data_servise/data_model/firebase_user.dart';
-import 'package:whereby_app/data_servise/data_model/firebase_waiting_room_user.dart';
 import 'package:whereby_app/modules/chime_module/cubit.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -78,7 +77,7 @@ void listenToUserChanges(DatabaseReference database, String userId,
           Map<String, dynamic>.from(event.snapshot.value as Map));
       onUserChange(user);
     } else {
-      onUserChange(FirebaseUser()); // Return an empty user if no data found
+      onUserChange(FirebaseUser());
     }
   });
 }

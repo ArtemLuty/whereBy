@@ -28,20 +28,5 @@ Future<void> main() async {
 
   await EasyLocalization.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-
-  // Initialize other services here if needed
-  // await _requestPermission(); // For permissions if required
-
   runApp(const App());
 }
-
-
-// Future<void> _requestPermission() async {
-//   PermissionStatus status = await Permission.microphone.request();
-//   if (status.isDenied || status.isPermanentlyDenied) {
-//     // Handle the case when the permission is denied
-//     print('Microphone permission is required to proceed.');
-//   } else if (status.isGranted) {
-//     print('Microphone permission granted.');
-//   }
-// }

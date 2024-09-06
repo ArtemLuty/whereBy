@@ -17,6 +17,7 @@ class Content {
   final String? question;
   final String? explanation;
   final String? task;
+  final String? idiom;
   final String? theme;
   final List<String>? sentences;
   final List<String>? words;
@@ -33,6 +34,7 @@ class Content {
     this.question,
     this.explanation,
     this.task,
+    this.idiom,
     this.theme,
     this.sentences,
     this.words,

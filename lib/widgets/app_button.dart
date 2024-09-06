@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:whereby_app/core/app_theme.dart';
 import 'package:whereby_app/widgets/rotating_progress_indicator.dart';
 import 'package:whereby_app/widgets/svg_icon.dart';
@@ -17,6 +18,8 @@ class AppButton extends StatelessWidget {
   final Color? textColor;
   final double? elevation;
   final Color? borderColor;
+  final double? fontSize;
+  final FontWeight? fontWeight;
   final void Function() onTap;
 
   const AppButton(
@@ -31,6 +34,8 @@ class AppButton extends StatelessWidget {
     this.filled = true,
     this.elevation = 0,
     this.isLoading,
+    this.fontSize,
+    this.fontWeight,
     this.disabled = false,
     Key? key,
     this.icon,
@@ -93,7 +98,7 @@ class AppButton extends StatelessWidget {
                   borderRadius: BorderRadius.circular(circular ?? 30),
                 ),
                 side: BorderSide(
-                  width: 1.w,
+                  width: 2.w,
                   color: _borderColor,
                 ),
               ).merge(
@@ -113,10 +118,10 @@ class AppButton extends StatelessWidget {
             ],
             Text(
               text,
-              style: TextStyle(
-                fontSize: 16.sp,
+              style: GoogleFonts.poppins(
+                fontSize: fontSize ?? 16.sp,
                 color: _textColor,
-                fontWeight: FontWeight.w600,
+                fontWeight: fontWeight ?? FontWeight.w500,
               ),
             ),
             TweenAnimationBuilder<double>(

@@ -10,9 +10,7 @@ class AppBloc {
   }
 
   static List<BlocProvider> get providers {
-    return [
-      BlocProvider<AppCubit>(create: (_) => appCubit),
-    ];
+    return [BlocProvider<AppCubit>(create: (_) => appCubit)];
   }
 
   static Widget appBuilder(Widget Function(BuildContext) builder) {

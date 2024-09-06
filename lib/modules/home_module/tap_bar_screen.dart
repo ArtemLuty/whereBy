@@ -5,10 +5,10 @@ import 'package:whereby_app/modules/home_module/home_cubit/home_cubit.dart';
 import 'package:whereby_app/modules/home_module/home_state.dart';
 import 'package:whereby_app/modules/home_module/tap_bar.dart';
 
-class HomeScreen extends StatelessWidget {
+class BarScreen extends StatelessWidget {
   static const path = 'home';
 
-  const HomeScreen({Key? key}) : super(key: key);
+  const BarScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class HomeScreen extends StatelessWidget {
           );
         }
         return const Scaffold(
-          body: MeetingScreen(),
+          body: NavigationBarApp(),
         );
       },
     );

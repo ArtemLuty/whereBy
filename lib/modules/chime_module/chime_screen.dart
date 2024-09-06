@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_aws_chime/models/join_info.model.dart';
 import 'package:flutter_aws_chime/views/meeting.view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:whereby_app/constants/colors.dart';
 import 'package:whereby_app/modules/chime_module/card_widget.dart';
 import 'package:whereby_app/modules/chime_module/cubit.dart';
 import 'package:whereby_app/modules/chime_module/state.dart';
 import 'package:whereby_app/modules/home_module/onboarding_screen.dart';
-import 'package:whereby_app/utils/fonts.dart';
-import 'package:whereby_app/widgets/app_button.dart';
+import 'package:whereby_app/utils/scalable_size.dart';
 import 'package:flutter_aws_chime/models/meeting.model.dart';
 
 class ConnectionScreen extends StatefulWidget {
@@ -20,11 +20,10 @@ class ConnectionScreen extends StatefulWidget {
 }
 
 class _ConnectionScreenState extends State<ConnectionScreen> {
-  bool _isMuted = false;
+  bool _isMuted = true;
   late Timer _timer;
-  int _seconds = 3600;
+  int _seconds = 0;
   late int timeSpend;
-  bool _buttonClicked = false;
   bool _isAudioDeviceSet = false;
 
   @override
@@ -39,6 +38,7 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
         await MeetingModel().listAudioDevices();
         MeetingModel().initialAudioSelection();
         MeetingModel().updateCurrentDevice('Built-in Speaker');
+        _toggleMute();
         _isAudioDeviceSet = true;
       } catch (e) {
         print('Error setting audio device: $e');
@@ -49,12 +49,12 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
   void _startTimer() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
-        if (_seconds > 0) {
-          _seconds--;
-        } else {
-          _timer.cancel();
-          _leaveMeeting(context);
-        }
+        // if (_seconds > 0) {
+        _seconds++;
+        // } else {
+        // _timer.cancel();
+        // _leaveMeeting(context);
+        // }
       });
     });
   }
@@ -110,14 +110,14 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
             state.data!.rooms.isNotEmpty ? state.userRoom!.createdAt : 0;
         final currentTime = DateTime.now().millisecondsSinceEpoch;
         timeSpend = (currentTime - createdAt) ~/ 1000;
-        _seconds = 900 - timeSpend;
-        bool isCurrentSpeaker =
-            state.userRoom!.currentSpeakerId == state.logInUserId;
+        _seconds = 0 + timeSpend;
+        // bool isCurrentSpeaker =
+        //     state.userRoom!.currentSpeakerId == state.logInUserId;
         final waitingRoom = state.userRoom!.users ?? {};
         final numberOfUsers = state.userRoom!.users.length ?? 0;
-        final roomId = state.data!.users[state.logInUserId]?.roomId;
-        final cardId = state.userRoom!.cardId;
-        bool isStartCard = state.cards?[0].type == 'start_cards';
+        // final roomId = state.data!.users[state.logInUserId]?.roomId;
+        // final cardId = state.userRoom!.cardId;
+        // bool isStartCard = state.cards?[0].type == 'start_cards';
 
         return Scaffold(
           backgroundColor: Colors.white,
@@ -129,8 +129,8 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
                 if (state.meetingData != null && state.attendeeData != null)
                   Column(
                     children: [
-                      Spacer(),
-                      Container(
+                      const Spacer(),
+                      SizedBox(
                         width: 1,
                         height: 1,
                         child: MeetingView(
@@ -157,8 +157,10 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
                           ),
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
+                              Spacer(),
+                              Spacer(),
                               if (numberOfUsers > 0)
                                 ...List.generate(numberOfUsers, (index) {
                                   final userId =
@@ -166,54 +168,62 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
                                   final user = waitingRoom[userId];
                                   final userName = user?.name ?? '';
                                   final userAvatar = user?.avatar ?? '';
-
                                   return Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          child: userAvatar.isNotEmpty
-                                              ? Image.network(
-                                                  'https://test.wetalk.co$userAvatar',
-                                                  scale: 1.0,
-                                                  height: 77,
-                                                  width: 77,
-                                                  fit: BoxFit.fill,
-                                                  errorBuilder: (context, error,
-                                                      stackTrace) {
-                                                    return Image.asset(
-                                                      'assets/png/default_avatar.png',
-                                                      height: 77,
-                                                      width: 77,
-                                                      fit: BoxFit.fill,
-                                                    );
-                                                  },
-                                                )
-                                              : Image.asset(
-                                                  'assets/png/default_avatar.png',
-                                                  height: 77,
-                                                  width: 77,
-                                                  fit: BoxFit.cover,
-                                                ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 4.0),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            child: userAvatar.isNotEmpty
+                                                ? Image.network(
+                                                    'https://test.wetalk.co$userAvatar',
+                                                    scale: 1.0,
+                                                    height: 77,
+                                                    width: 77,
+                                                    fit: BoxFit.cover,
+                                                    errorBuilder: (context,
+                                                        error, stackTrace) {
+                                                      return Image.asset(
+                                                        'assets/png/default_avatar.png',
+                                                        height: 77,
+                                                        width: 77,
+                                                        fit: BoxFit.fill,
+                                                      );
+                                                    },
+                                                  )
+                                                : Image.asset(
+                                                    'assets/png/default_avatar.png',
+                                                    height: 77,
+                                                    width: 77,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                          ),
                                         ),
                                       ),
                                       const SizedBox(
                                         height: 8,
                                       ),
                                       Text(
+                                        softWrap: true,
                                         userName,
-                                        style: const TextStyle(
+                                        style: GoogleFonts.poppins(
                                             color: Colors.black,
-                                            fontFamily: FontFamily.poppins),
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w400),
                                       ),
                                     ],
                                   );
                                 }),
+                              Spacer(),
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
@@ -269,78 +279,31 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
                                   border: Border.all(
                                     color: Colors.black,
                                   ),
-                                  borderRadius: BorderRadius.circular(4),
+                                  borderRadius: BorderRadius.circular(16),
                                 ),
                                 child: Center(
                                   child: Text(
                                     '${_formatTime(_seconds)}',
-                                    style: const TextStyle(
-                                      fontSize: 13,
-                                      color: Colors.black,
-                                    ),
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 14,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w500),
                                   ),
                                 ),
                               ),
                             ),
                           ],
                         ),
-                        Row(
-                          children: [
-                            Container(
-                                color: Colors.white,
-                                width: 360,
-                                height: 530,
-                                child: const CardWidget()),
-                          ],
-                        ),
-                        const Spacer(),
-                        // if (_buttonClicked && isStartCard)
-                        //   const Padding(
-                        //     padding: EdgeInsets.only(bottom: 13.0),
-                        //     child: Row(
-                        //       mainAxisAlignment: MainAxisAlignment.center,
-                        //       children: [
-                        //         Text(
-                        //           'Await Next User',
-                        //           style: TextStyle(
-                        //             color: Colors.green,
-                        //             fontSize: 15,
-                        //           ),
-                        //         ),
-                        //         SizedBox(width: 8),
-                        //         SizedBox(
-                        //           width: 16,
-                        //           height: 16,
-                        //           child: CircularProgressIndicator(
-                        //             valueColor: AlwaysStoppedAnimation<Color>(
-                        //                 Colors.green),
-                        //             strokeWidth: 2,
-                        //           ),
-                        //         ),
-                        //       ],
-                        //     ),
-                        //   ),
-                        // if (isStartCard || isCurrentSpeaker)
-                        //   AppButton(
-                        //     _buttonClicked ? 'Next' : 'Start',
-                        //     onTap: (!_buttonClicked || !isStartCard)
-                        //         ? () {
-                        //             context
-                        //                 .read<WaitingRoomCubit>()
-                        //                 .getNextCard(roomId, cardId);
-                        //             setState(() {
-                        //               _buttonClicked = true;
-                        //             });
-                        //           }
-                        //         : () {},
-                        //     color: (!_buttonClicked || !isStartCard)
-                        //         ? ColorConstants.primaryBlue
-                        //         : Colors.grey,
-                        //     textColor: Colors.white,
-                        //     height: 48,
-                        //     width: 500,
-                        //     circular: 4,
-                        //   ),
+                        // Row(
+                        //   children: [
+                        Container(
+                            color: Colors.white,
+                            width: context.getScalableWidth(355),
+                            height: context.getScalableHeight(505),
+                            child: const CardWidget()),
+                        //   ],
+                        // ),
+                        // const Spacer(),
                       ],
                     ),
                   ),
@@ -356,12 +319,9 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
 
 void _handleRoomIdChange(BuildContext context, WaitingRoomState state) {
   if (!state.readyForCall) {
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => const OnboardingScreen()),
-    );
+        MaterialPageRoute(builder: (context) => const OnboardingScreen()));
     MeetingModel().stopMeeting();
-    // });
     context.read<WaitingRoomCubit>().deleteUserFromRoom();
   }
 }

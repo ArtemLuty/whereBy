@@ -10,6 +10,7 @@ class WaitingRoomState {
   final Map<String, dynamic>? meetingData;
   final Map<String, dynamic>? attendeeData;
   final bool readyForCall;
+  final bool showCardLoud;
   final RoomDetail? userRoom;
 
   const WaitingRoomState(
@@ -21,6 +22,7 @@ class WaitingRoomState {
       this.meetingData,
       this.attendeeData,
       this.readyForCall = false,
+      this.showCardLoud = false,
       this.userRoom});
 
   WaitingRoomState copyWith({
@@ -32,6 +34,7 @@ class WaitingRoomState {
     Map<String, dynamic>? meetingData,
     Map<String, dynamic>? attendeeData,
     bool? readyForCall,
+    bool? showCardLoud,
     RoomDetail? userRoom,
   }) {
     return WaitingRoomState(
@@ -43,6 +46,7 @@ class WaitingRoomState {
       meetingData: meetingData ?? this.meetingData,
       attendeeData: attendeeData ?? this.attendeeData,
       readyForCall: readyForCall ?? this.readyForCall,
+      showCardLoud: showCardLoud ?? this.showCardLoud,
       userRoom: userRoom ?? this.userRoom,
     );
   }

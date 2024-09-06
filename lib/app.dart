@@ -15,12 +15,10 @@ import 'package:whereby_app/modules/auth_module/screen.dart';
 import 'package:whereby_app/modules/chime_module/chime_sdk.dart';
 import 'package:whereby_app/modules/chime_module/cubit.dart';
 import 'package:whereby_app/modules/home_module/home_cubit/home_cubit.dart';
-// import 'package:whereby_app/modules/home_module/onboarding_screen.dart';
 import 'package:whereby_app/setup.dart';
 import 'package:whereby_app/utils/theme_manager.dart';
 import 'package:whereby_app/widgets/splash_screen.dart';
 import 'package:whereby_app/widgets/system_theme_update_listener.dart';
-
 import 'core/app_router.dart';
 
 class App extends StatelessWidget {
@@ -64,7 +62,8 @@ class App extends StatelessWidget {
               child: MaterialApp(
                 builder: (BuildContext context, Widget? child) {
                   return MediaQuery(
-                    data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+                    data: MediaQuery.of(context)
+                        .copyWith(textScaler: const TextScaler.linear(1.0)),
                     child: child!,
                   );
                 },
@@ -75,13 +74,13 @@ class App extends StatelessWidget {
                 supportedLocales: context.supportedLocales,
                 onGenerateRoute: AppRouter.onGenerateRoute,
                 localizationsDelegates: AppLocale.localizationsDelegates,
-                themeMode: context.watch<AppCubit>().state.themeMode,
-                theme: AppThemes.light,
+                // themeMode: context.watch<AppCubit>().state.themeMode,
+                // theme: AppThemes.light,
                 // routes: {
                 //   '/joinMeeting': (_) => JoinMeetingView(),
                 //   '/meeting': (_) => const MeetingView(),
                 // },
-                darkTheme: AppTheme.darkTheme,
+                // darkTheme: AppTheme.darkTheme,
               ),
             ),
           ),

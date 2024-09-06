@@ -18,6 +18,7 @@ Content _$ContentFromJson(Map<String, dynamic> json) => Content(
       question: json['question'] as String?,
       explanation: json['explanation'] as String?,
       task: json['task'] as String?,
+      idiom: json['idiom'] as String?,
       theme: json['theme'] as String?,
       sentences: (json['sentences'] as List<dynamic>?)
           ?.map((e) => e as String)
@@ -38,6 +39,7 @@ Map<String, dynamic> _$ContentToJson(Content instance) => <String, dynamic>{
       'question': instance.question,
       'explanation': instance.explanation,
       'task': instance.task,
+      'idiom': instance.idiom,
       'theme': instance.theme,
       'sentences': instance.sentences,
       'words': instance.words,

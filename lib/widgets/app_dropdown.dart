@@ -14,7 +14,7 @@ class PostDropdown extends StatefulWidget {
     required this.height,
     required this.hintText,
     required this.items,
-    required this.selectedValue, // Add this line
+    required this.selectedValue,
   }) : super(key: key);
 
   @override
