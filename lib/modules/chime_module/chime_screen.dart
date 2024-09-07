@@ -49,12 +49,7 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
   void _startTimer() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
-        // if (_seconds > 0) {
         _seconds++;
-        // } else {
-        // _timer.cancel();
-        // _leaveMeeting(context);
-        // }
       });
     });
   }
@@ -111,13 +106,8 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
         final currentTime = DateTime.now().millisecondsSinceEpoch;
         timeSpend = (currentTime - createdAt) ~/ 1000;
         _seconds = 0 + timeSpend;
-        // bool isCurrentSpeaker =
-        //     state.userRoom!.currentSpeakerId == state.logInUserId;
         final waitingRoom = state.userRoom!.users ?? {};
         final numberOfUsers = state.userRoom!.users.length ?? 0;
-        // final roomId = state.data!.users[state.logInUserId]?.roomId;
-        // final cardId = state.userRoom!.cardId;
-        // bool isStartCard = state.cards?[0].type == 'start_cards';
 
         return Scaffold(
           backgroundColor: Colors.white,
@@ -223,7 +213,7 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
                                     ],
                                   );
                                 }),
-                              Spacer(),
+                              const Spacer(),
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
@@ -294,16 +284,11 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
                             ),
                           ],
                         ),
-                        // Row(
-                        //   children: [
                         Container(
                             color: Colors.white,
                             width: context.getScalableWidth(355),
-                            height: context.getScalableHeight(505),
+                            height: context.getScalableHeight(500),
                             child: const CardWidget()),
-                        //   ],
-                        // ),
-                        // const Spacer(),
                       ],
                     ),
                   ),

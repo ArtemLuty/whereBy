@@ -430,65 +430,63 @@ class CardWidgetState extends State<CardWidget> {
                                 ),
                               ],
                               const Spacer(),
-                              if (_buttonClicked && isStartCard)
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 13.0),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Await Next User',
-                                        style: GoogleFonts.poppins(
-                                          color: Colors.green,
-                                          fontSize: 15,
-                                        ),
-                                      ),
-                                      const SizedBox(width: 8),
-                                      const SizedBox(
-                                        width: 16,
-                                        height: 16,
-                                        child: CircularProgressIndicator(
-                                          valueColor:
-                                              AlwaysStoppedAnimation<Color>(
-                                                  Colors.green),
-                                          strokeWidth: 2,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              if (_showCardLoud && !isStartCard)
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 13.0),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Card is loading',
-                                        style: GoogleFonts.poppins(
-                                          color: Colors.green,
-                                          fontSize: 15,
-                                        ),
-                                      ),
-                                      const SizedBox(width: 8),
-                                      const SizedBox(
-                                        width: 16,
-                                        height: 16,
-                                        child: CircularProgressIndicator(
-                                          valueColor:
-                                              AlwaysStoppedAnimation<Color>(
-                                                  Colors.green),
-                                          strokeWidth: 2,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
                             ],
                           ),
                         ),
                       ),
                     ),
+                    if (_buttonClicked && isStartCard)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 13.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Waiting for your partner',
+                              style: GoogleFonts.poppins(
+                                color: Colors.green,
+                                fontSize: 15,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            const SizedBox(
+                              width: 16,
+                              height: 16,
+                              child: CircularProgressIndicator(
+                                valueColor:
+                                    AlwaysStoppedAnimation<Color>(Colors.green),
+                                strokeWidth: 2,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    if (_showCardLoud && !isStartCard)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 13.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Card is loading',
+                              style: GoogleFonts.poppins(
+                                color: Colors.green,
+                                fontSize: 15,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            const SizedBox(
+                              width: 16,
+                              height: 16,
+                              child: CircularProgressIndicator(
+                                valueColor:
+                                    AlwaysStoppedAnimation<Color>(Colors.green),
+                                strokeWidth: 2,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     if (isStartCard && !_buttonClicked ||
                         isCurrentSpeaker && !_showCardLoud && _buttonClicked)
                       AppButton(
