@@ -7,19 +7,18 @@ import 'package:whereby_app/constants/colors.dart';
 import 'package:whereby_app/modules/auth_module/auth.state.dart';
 import 'package:whereby_app/modules/auth_module/auth_cubit.dart';
 import 'package:whereby_app/modules/home_module/onboarding_screen.dart';
-import 'package:whereby_app/modules/home_module/tap_bar_screen.dart';
 import 'package:whereby_app/utils/fonts.dart';
 import 'package:whereby_app/widgets/app_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class RolesView extends StatefulWidget {
-  const RolesView({Key? key}) : super(key: key);
+class AuthView extends StatefulWidget {
+  const AuthView({Key? key}) : super(key: key);
 
   @override
-  State<RolesView> createState() => _RolesViewState();
+  State<AuthView> createState() => _AuthViewState();
 }
 
-class _RolesViewState extends State<RolesView> {
+class _AuthViewState extends State<AuthView> {
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   bool _isPasswordVisible = false;
 
@@ -31,7 +30,6 @@ class _RolesViewState extends State<RolesView> {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
               builder: (context) => const OnboardingScreen(),
-              // builder: (context) => const BarScreen(),
             ),
           );
         } else if (state is AuthError) {
@@ -189,18 +187,15 @@ class _RolesViewState extends State<RolesView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: 0),
-                    child: TextButton(
-                      onPressed: () => handlePaswordTap(),
-                      child: const Text(
-                        'Forgot password?',
-                        style: TextStyle(
-                          color: ColorConstants.buttonColor,
-                          fontFamily: FontFamily.poppins,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 14,
-                        ),
+                  TextButton(
+                    onPressed: () => handlePaswordTap(),
+                    child: const Text(
+                      'Forgot password?',
+                      style: TextStyle(
+                        color: ColorConstants.buttonColor,
+                        fontFamily: FontFamily.poppins,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14,
                       ),
                     ),
                   ),

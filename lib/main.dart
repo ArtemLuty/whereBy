@@ -9,23 +9,7 @@ import 'dart:io' show Platform;
 Future<void> main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-
-  if (Platform.isAndroid) {
-    await Firebase.initializeApp(
-      options: const FirebaseOptions(
-        apiKey: 'AIzaSyANuI9EPh3NAe9jzuimwaj1ud1lrao_CdU',
-        appId: '1:620399691169:android:e75c65949a03b12ca7f7e0',
-        messagingSenderId: '620399691169',
-        projectId: 'wetalk2-server-test',
-        storageBucket: 'wetalk2-server-test.appspot.com',
-      ),
-    );
-  } else if (Platform.isIOS) {
-    await Firebase.initializeApp();
-  } else {
-    await Firebase.initializeApp();
-  }
-
+  await Firebase.initializeApp();
   await EasyLocalization.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(const App());

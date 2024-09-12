@@ -39,7 +39,6 @@ Future<Map<String, dynamic>> fetchDataFromFirebase() async {
 Future<void> updatePresenceStatus(
     String userToken, bool online, String logInUserId) async {
   try {
-    // final userId = await authRepository.secureManager.getUserId();
     final presenceStatus = online ? 'online' : 'offline';
 
     // Update presence in Firebase Realtime Database
@@ -110,39 +109,3 @@ void listenToCardIdChanges(DatabaseReference database, String roomId,
     }
   });
 }
-
-// void listenToCardIdChanges(DatabaseReference database, String roomId,
-//     Function(String) onCardIdChange) {
-//   String? previousCardId;
-
-//   database.child('rooms/$roomId/cardId').onValue.listen((event) {
-//     if (event.snapshot.value != null) {
-//       String newCardId = event.snapshot.value as String;
-
-//       // Trigger only if the new cardId is different from the previous one
-//       if (previousCardId != newCardId) {
-//         previousCardId = newCardId;
-//         onCardIdChange(newCardId);
-//       }
-//     }
-//   });
-// }
-
-// Future<void> addUserToWaitingRoom(
-//   DatabaseReference database,
-//   FirebaseWaitingRoomUser user,
-// ) async {
-//   await database.child('waitingRoom/13083');
-//   // await database.child('waitingRoom/${user.id}').set(user.toMap());
-// }
-
-// extension on FirebaseWaitingRoomUser {
-//   Map<String, dynamic> toMap() {
-//     return {
-//       'id': id,
-//       'name': name,
-//       'addedAt': addedAt,
-//       'online': online,
-//     };
-//   }
-// }

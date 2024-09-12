@@ -21,14 +21,11 @@ class _SetupAppState extends State<SetupApp> {
 
   @override
   void dispose() {
-    // AppBloc.appCubit.onCloseApp();
     super.dispose();
   }
 
   static Future<void> _setup() async {
     AppBloc.init();
-    // await HttpClient.init();
-    // AppBloc.appCubit.onStartApp();
   }
 
   @override

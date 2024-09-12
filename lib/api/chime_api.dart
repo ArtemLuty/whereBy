@@ -1,9 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-void initializeChime() {
-  // _chime = Chime(region: 'us-west-2');
-}
+void initializeChime() {}
 
 Future<void> joinAwaitingRoom(
   String userToken,
@@ -20,9 +18,6 @@ Future<void> joinAwaitingRoom(
         'Content-Type': 'application/json',
       },
     );
-
-    print('Meeting Response Status Code: ${meetingResponse.statusCode}');
-    print('Meeting Response Body: ${meetingResponse.body}');
 
     if (meetingResponse.statusCode == 200) {
       if (meetingResponse.body.isEmpty) {

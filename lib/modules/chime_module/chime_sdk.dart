@@ -84,17 +84,12 @@ class _MeetingScreenState extends State<MeetingScreen> {
                 backgroundColor: Colors.white,
                 toolbarHeight: 60,
                 leadingWidth: 80,
-                leading:
-                    // IconButton(
-                    //   icon:
-                    Padding(
+                leading: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Image.asset(
                     'assets/png/logo_app_bar.png',
                   ),
                 ),
-                //   onPressed: () {},
-                // ),
                 actions: [
                   IconButton(
                     icon: SvgPicture.asset(
@@ -104,7 +99,7 @@ class _MeetingScreenState extends State<MeetingScreen> {
                   ),
                 ],
                 bottom: PreferredSize(
-                  preferredSize: Size.fromHeight(2.0),
+                  preferredSize: const Size.fromHeight(2.0),
                   child: Container(
                     color: ColorConstants.borderLine,
                     height: 1.0,

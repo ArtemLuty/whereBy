@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:whereby_app/modules/auth_module/views/roles_view.dart';
+import 'package:whereby_app/modules/auth_module/views/auth_view.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({Key? key}) : super(key: key);
@@ -11,7 +11,7 @@ class AuthScreen extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16),
-          child: RolesView(),
+          child: AuthView(),
         ),
       ),
     );

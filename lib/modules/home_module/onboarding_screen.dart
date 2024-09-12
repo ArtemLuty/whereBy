@@ -24,7 +24,6 @@ class OnboardingScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: SizedBox(
-                  // height: 25,
                   child: SvgPicture.asset(
                     'assets/svg/onbord!_image.svg',
                   ),
@@ -38,17 +37,13 @@ class OnboardingScreen extends StatelessWidget {
                   height: 48,
                   child: ElevatedButton(
                     onPressed: () async {
-                      // Check for microphone permission
                       PermissionStatus status =
                           await Permission.microphone.status;
 
                       if (status.isDenied || status.isRestricted) {
-                        // Request the permission if it's not granted
-
                         status = await Permission.microphone.request();
                         context.read<HomeCubit>().awaitingTime();
                         context.read<WaitingRoomCubit>().init();
-                        // context.read<WaitingRoomCubit>().workCondition();
 
                         Navigator.of(context).push(
                           MaterialPageRoute(
@@ -58,9 +53,7 @@ class OnboardingScreen extends StatelessWidget {
                       }
 
                       if (status.isGranted) {
-                        // If permission is granted, proceed with the logic
                         context.read<HomeCubit>().awaitingTime();
-                        // context.read<WaitingRoomCubit>().init();
                         context.read<WaitingRoomCubit>().workCondition();
 
                         Navigator.of(context).push(

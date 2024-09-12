@@ -5,7 +5,7 @@ import 'package:whereby_app/utils/screen_transitions.dart';
 
 class AppRouter {
   static Map<String, WidgetBuilder> routes = {
-    HomeScreen.path: (context) => HomeScreen(),
+    HomeScreen.path: (context) => const HomeScreen(),
   };
 
   static Route onGenerateRoute(RouteSettings settings) {

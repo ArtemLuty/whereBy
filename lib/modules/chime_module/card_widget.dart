@@ -103,7 +103,7 @@ class CardWidgetState extends State<CardWidget> {
                                       style: GoogleFonts.poppins(
                                           fontSize: 22,
                                           fontWeight: FontWeight.w500,
-                                          color: ColorConstants.summaryDBlue),
+                                          color: ColorConstants.summaryDGreu),
                                     ),
                                   ),
                                 ),
