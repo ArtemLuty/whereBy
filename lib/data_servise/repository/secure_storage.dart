@@ -56,7 +56,6 @@ class SecureStorageManagerImpl extends SecureStorageManager {
   @override
   Future<void> saveUserToken(String userToken) async {
     await storage.write(key: USER_TOKEN, value: userToken);
-    print("userTokenInStorage--->$userToken");
   }
 
   @override
@@ -67,7 +66,6 @@ class SecureStorageManagerImpl extends SecureStorageManager {
   @override
   Future<void> saveFcmToken(String fcmToken) async {
     await storage.write(key: FCM_TOKEN, value: fcmToken);
-    print("FCM-TokenIS$fcmToken");
   }
 
   @override
@@ -78,13 +76,11 @@ class SecureStorageManagerImpl extends SecureStorageManager {
   @override
   Future<void> saveStatus(String status) async {
     await storage.write(key: STATUS, value: status);
-    print("statusIS$status");
   }
 
   @override
   Future<void> saveIsOnbordingDone(String isOnbordingDone) async {
     await storage.write(key: ONBORD_DONE, value: isOnbordingDone);
-    print("isOnbordingDone$isOnbordingDone");
   }
 
   @override

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:whereby_app/constants/colors.dart';
-import 'package:whereby_app/modules/chime_module/cubit.dart';
+import 'package:whereby_app/modules/chime_module/chime_cubit/chime_cubit.dart';
 import 'package:whereby_app/modules/home_module/home_cubit/home_cubit.dart';
 import 'package:whereby_app/modules/home_module/home_screen.dart';
 

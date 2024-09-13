@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:whereby_app/constants/colors.dart';
-import 'package:whereby_app/modules/chime_module/cubit.dart';
-import 'package:whereby_app/modules/chime_module/state.dart';
+import 'package:whereby_app/modules/chime_module/chime_cubit/chime_cubit.dart';
+import 'package:whereby_app/modules/chime_module/chime_cubit/chime_state.dart';
 import 'package:whereby_app/utils/scalable_size.dart';
 import 'package:whereby_app/widgets/app_button.dart';
 

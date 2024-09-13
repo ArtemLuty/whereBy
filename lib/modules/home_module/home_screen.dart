@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:whereby_app/modules/chime_module/chime_sdk.dart';
+import 'package:whereby_app/modules/chime_module/waiting_room_screen.dart';
 import 'package:whereby_app/modules/home_module/home_cubit/home_cubit.dart';
 import 'package:whereby_app/modules/home_module/home_cubit/home_state.dart';
 
@@ -20,7 +20,7 @@ class HomeScreen extends StatelessWidget {
           );
         }
         return const Scaffold(
-          body: MeetingScreen(),
+          body: WaitingRoomScreen(),
         );
       },
     );

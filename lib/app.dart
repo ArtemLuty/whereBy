@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:whereby_app/api/auth_api.dart';
+import 'package:whereby_app/data_servise/repository/auth_repository.dart';
 import 'package:whereby_app/app/app_cubit.dart';
 import 'package:whereby_app/core/app_locale.dart';
 import 'package:whereby_app/data_servise/repository/secure_storage.dart';
 import 'package:whereby_app/data_servise/repository/user_repository.dart';
 import 'package:whereby_app/modules/auth_module/auth_cubit.dart';
 import 'package:whereby_app/modules/auth_module/auth_screen.dart';
-import 'package:whereby_app/modules/chime_module/chime_sdk.dart';
-import 'package:whereby_app/modules/chime_module/cubit.dart';
+import 'package:whereby_app/modules/chime_module/waiting_room_screen.dart';
+import 'package:whereby_app/modules/chime_module/chime_cubit/chime_cubit.dart';
 import 'package:whereby_app/modules/home_module/home_cubit/home_cubit.dart';
 import 'package:whereby_app/setup.dart';
 import 'package:whereby_app/widgets/splash_screen.dart';
@@ -50,7 +50,7 @@ class App extends StatelessWidget {
                     AuthRepository(SecureStorageManager.of(context)),
                     FirebaseDatabase.instance.ref(),
                   ),
-                  child: const MeetingScreen(),
+                  child: const WaitingRoomScreen(),
                 ),
                 BlocProvider(
                     create: (context) => HomeCubit(

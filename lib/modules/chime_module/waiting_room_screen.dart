@@ -3,27 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:whereby_app/constants/colors.dart';
-import 'package:whereby_app/modules/chime_module/chime_screen.dart';
-import 'package:whereby_app/modules/chime_module/cubit.dart';
-import 'package:whereby_app/modules/chime_module/state.dart';
+import 'package:whereby_app/modules/chime_module/connection_screen.dart';
+import 'package:whereby_app/modules/chime_module/chime_cubit/chime_cubit.dart';
+import 'package:whereby_app/modules/chime_module/chime_cubit/chime_state.dart';
 import 'package:whereby_app/modules/home_module/home_cubit/home_cubit.dart';
 import 'package:whereby_app/widgets/app_button.dart';
 
-class MeetingScreen extends StatefulWidget {
-  const MeetingScreen({super.key});
+class WaitingRoomScreen extends StatefulWidget {
+  const WaitingRoomScreen({super.key});
 
   @override
   _MeetingScreenState createState() => _MeetingScreenState();
 }
 
-class _MeetingScreenState extends State<MeetingScreen> {
+class _MeetingScreenState extends State<WaitingRoomScreen> {
   Duration duration = const Duration();
   Timer? timer;
-
-  String _meetingId = '';
-  String _attendeeId = '';
   List<dynamic> attendeeResponse = [];
-  bool _isMeetingJoined = false;
   String _errorMessage = '';
 
   @override

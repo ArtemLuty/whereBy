@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:whereby_app/api/auth_api.dart';
+import 'package:whereby_app/data_servise/repository/auth_repository.dart';
 import 'package:whereby_app/api/chime_api.dart';
 import 'package:whereby_app/api/firebase_data.dart';
 import 'package:whereby_app/api/wordpress_client.dart';
 import 'package:whereby_app/data_servise/data_model/weiting_room_data.dart';
-import 'package:whereby_app/modules/chime_module/state.dart';
+import 'package:whereby_app/modules/chime_module/chime_cubit/chime_state.dart';
 
 class WaitingRoomCubit extends Cubit<WaitingRoomState> {
   final AuthRepository authRepository;
@@ -92,14 +92,12 @@ class WaitingRoomCubit extends Cubit<WaitingRoomState> {
   void _onCardIdChange(String newCardId) async {
     emit(state.copyWith(isLoading: true));
     try {
-      // final userToken = await authRepository.secureManager.getUserToken();
       final logInUserId = await authRepository.secureManager.getUserId();
       final data = await fetchDataFromFirebase();
       final waitingRoomData = WaitingRoomData.fromJson(data);
       final roomId = waitingRoomData.users[logInUserId]!.roomId;
       final userRoom = waitingRoomData.rooms[roomId];
       final currentCard = state.cards ?? [];
-      // final _showCardLoud = false;
       final nextCards = await fetchCards(waitingRoomData.rooms.isNotEmpty
           ? waitingRoomData.rooms[roomId]?.nextCardId
           : "50f6612f-a65c-43c2-a4ca-6c33c8d348ff");

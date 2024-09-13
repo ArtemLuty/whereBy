@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:whereby_app/data_servise/data_model/firebase_user.dart';
-import 'package:whereby_app/modules/chime_module/cubit.dart';
+import 'package:whereby_app/modules/chime_module/chime_cubit/chime_cubit.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final DatabaseReference _database = FirebaseDatabase.instance.ref();

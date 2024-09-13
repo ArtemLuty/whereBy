@@ -55,18 +55,8 @@ Future<void> nextCards(
     } else {
       print(
           'Failed to load nextCards: ${response.statusCode}, ${response.reasonPhrase}');
-      print('Response body: ${response.body}');
-    }
-
-    if (response.statusCode == 201) {
-      print('nextCards----- 201: ${response.body}');
-    } else {
-      print(
-          'Failed to load nextCards: ${response.statusCode}, ${response.reasonPhrase}');
-      print('Response body: ${response.body}');
     }
   } catch (e) {
-    // Handle any exceptions that might occur
     print('Error occurred: $e');
   }
 }
@@ -83,21 +73,6 @@ Future<void> deleteUserRoom(String userToken, String cookie) async {
       Uri.parse('https://test.wetalk.co/wp-json/users/leaveRoom'),
       headers: headers,
     );
-
-    if (response.statusCode == 200) {
-      print('user Exit: ${response.body}');
-    } else {
-      print(
-          'Failed to load user Exit: ${response.statusCode}, ${response.reasonPhrase}');
-      print('user Exit: ${response.body}');
-    }
-    if (response.statusCode == 201) {
-      print('user Exit: ${response.body}');
-    } else {
-      print(
-          'Failed to load user Exit: ${response.statusCode}, ${response.reasonPhrase}');
-      print('user Exit: ${response.body}');
-    }
   } catch (e) {
     print('Error occurred: $e');
   }
