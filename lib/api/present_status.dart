@@ -20,10 +20,8 @@ class PresenceManager {
         .onValue
         .listen((event) {
       if (event.snapshot.value == true) {
-        // User is connected
         _setPresenceStatus('online');
       } else {
-        // User is disconnected
         _setPresenceStatus('offline');
       }
     });
@@ -44,7 +42,6 @@ class PresenceManager {
   }
 
   Future<void> dispose() async {
-    // Set the user's presence status to 'offline' when the app is disposed
     await _setPresenceStatus('offline');
     await _connectionSubscription.cancel();
   }

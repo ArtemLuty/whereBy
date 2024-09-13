@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:whereby_app/data_servise/repository/auth_repository.dart';
 import 'package:whereby_app/api/chime_api.dart';
@@ -38,7 +39,9 @@ class WaitingRoomCubit extends Cubit<WaitingRoomState> {
         _onCardIdChange(newCardId);
       });
     } catch (e) {
-      print('Error in init: $e');
+      if (kDebugMode) {
+        print('Error in init: $e');
+      }
       emit(state.copyWith(
         isLoading: false,
         errorMessage: 'Failed to sign in: $e',
@@ -67,7 +70,9 @@ class WaitingRoomCubit extends Cubit<WaitingRoomState> {
         _onCardIdChange(newCardId);
       });
     } catch (e) {
-      print('Error in init: $e');
+      if (kDebugMode) {
+        print('Error in init: $e');
+      }
       emit(state.copyWith(
         isLoading: false,
         errorMessage: 'Failed to sign in: $e',
@@ -115,7 +120,9 @@ class WaitingRoomCubit extends Cubit<WaitingRoomState> {
           userRoom: userRoom,
           showCardLoud: false));
     } catch (e) {
-      print('Error fetching new card data: $e');
+      if (kDebugMode) {
+        print('Error fetching new card data: $e');
+      }
       emit(state.copyWith(
         isLoading: false,
         errorMessage: 'Failed to update card data: $e',
@@ -158,7 +165,9 @@ class WaitingRoomCubit extends Cubit<WaitingRoomState> {
         errorMessage: '',
       ));
     } catch (e) {
-      print('Error in cleanState: $e');
+      if (kDebugMode) {
+        print('Error in cleanState: $e');
+      }
       emit(state.copyWith(
         isLoading: false,
         errorMessage: 'Failed to clean state: $e',
@@ -215,7 +224,9 @@ class WaitingRoomCubit extends Cubit<WaitingRoomState> {
         userRoom: userRoom,
       ));
     } catch (e) {
-      print('Error in getSession: $e');
+      if (kDebugMode) {
+        print('Error in getSession: $e');
+      }
       emit(state.copyWith(
         isLoading: false,
         errorMessage: 'Failed to join meeting: $e',

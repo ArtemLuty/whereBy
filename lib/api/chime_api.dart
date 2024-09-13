@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 void initializeChime() {}
@@ -21,20 +22,28 @@ Future<void> joinAwaitingRoom(
 
     if (meetingResponse.statusCode == 200) {
       if (meetingResponse.body.isEmpty) {
-        print(
-            'Successfully joined waiting room, but received an empty response body.');
+        if (kDebugMode) {
+          print(
+              'Successfully joined waiting room, but received an empty response body.');
+        }
       } else {
         final responseData = jsonDecode(meetingResponse.body);
-        print('Response Data: $responseData');
+        if (kDebugMode) {
+          print('Response Data: $responseData');
+        }
 
         await joinMeetingRoom(userToken, cookie);
       }
     } else {
-      print(
-          'Failed to join waiting room: Status Code ${meetingResponse.statusCode}');
+      if (kDebugMode) {
+        print(
+            'Failed to join waiting room: Status Code ${meetingResponse.statusCode}');
+      }
     }
   } catch (e) {
-    print('Failed to join meeting: $e');
+    if (kDebugMode) {
+      print('Failed to join meeting: $e');
+    }
   }
 }
 
@@ -62,7 +71,9 @@ Future<Map<String, dynamic>> joinMeetingRoom(
       'attendee': attendeeData,
     };
   } catch (e) {
-    print('Failed to join meeting room: $e');
+    if (kDebugMode) {
+      print('Failed to join meeting room: $e');
+    }
     throw Exception('Failed to join meeting room: $e');
   }
 }

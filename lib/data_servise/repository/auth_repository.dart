@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:whereby_app/data_servise/repository/secure_storage.dart';
@@ -30,15 +31,21 @@ class AuthRepository {
       await secureManager.saveUserToken(jwtToken.toString());
 
       await secureManager.saveUserId(userId.toString());
-      print('UserId: $userId');
+      if (kDebugMode) {
+        print('UserId: $userId');
+      }
     } else {
-      print('Failed to login: ${loginResponse.statusCode}');
+      if (kDebugMode) {
+        print('Failed to login: ${loginResponse.statusCode}');
+      }
     }
     // Extract cookies from the login response
     final setCookie = loginResponse.headers['set-cookie'];
     await secureManager.saveFcmToken(setCookie.toString());
     if (setCookie == null) {
-      print('Failed to retrieve session cookies');
+      if (kDebugMode) {
+        print('Failed to retrieve session cookies');
+      }
       return;
     }
   }

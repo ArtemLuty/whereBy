@@ -9,7 +9,7 @@ import 'package:whereby_app/app/app_cubit.dart';
 import 'package:whereby_app/core/app_locale.dart';
 import 'package:whereby_app/data_servise/repository/secure_storage.dart';
 import 'package:whereby_app/data_servise/repository/user_repository.dart';
-import 'package:whereby_app/modules/auth_module/auth_cubit.dart';
+import 'package:whereby_app/modules/auth_module/auth_cubit/auth_cubit.dart';
 import 'package:whereby_app/modules/auth_module/auth_screen.dart';
 import 'package:whereby_app/modules/chime_module/waiting_room_screen.dart';
 import 'package:whereby_app/modules/chime_module/chime_cubit/chime_cubit.dart';

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:whereby_app/data_servise/data_model/card.dart';
@@ -21,7 +22,9 @@ Future<List<UserCard>> fetchCards(cardId) async {
 
   if (response.statusCode == 200) {
     final List<dynamic> jsonResponse = json.decode(response.body);
-    print("Card is load200${response.body}");
+    if (kDebugMode) {
+      print("Card is load200${response.body}");
+    }
     return jsonResponse.map((cardJson) => UserCard.fromJson(cardJson)).toList();
   } else {
     throw Exception(
@@ -51,13 +54,19 @@ Future<void> nextCards(
     );
 
     if (response.statusCode == 200) {
-      print('nextCards---- 200: ${response.body}');
+      if (kDebugMode) {
+        print('nextCards---- 200: ${response.body}');
+      }
     } else {
-      print(
-          'Failed to load nextCards: ${response.statusCode}, ${response.reasonPhrase}');
+      if (kDebugMode) {
+        print(
+            'Failed to load nextCards: ${response.statusCode}, ${response.reasonPhrase}');
+      }
     }
   } catch (e) {
-    print('Error occurred: $e');
+    if (kDebugMode) {
+      print('Error occurred: $e');
+    }
   }
 }
 
@@ -74,6 +83,8 @@ Future<void> deleteUserRoom(String userToken, String cookie) async {
       headers: headers,
     );
   } catch (e) {
-    print('Error occurred: $e');
+    if (kDebugMode) {
+      print('Error occurred: $e');
+    }
   }
 }

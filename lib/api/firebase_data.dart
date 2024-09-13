@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/foundation.dart';
 import 'package:whereby_app/data_servise/data_model/firebase_user.dart';
 import 'package:whereby_app/modules/chime_module/chime_cubit/chime_cubit.dart';
 
@@ -10,7 +11,9 @@ Future<void> signInAnonymously() async {
   try {
     await _auth.signInAnonymously();
   } catch (e) {
-    print('Error signing in anonymously: $e');
+    if (kDebugMode) {
+      print('Error signing in anonymously: $e');
+    }
   }
 }
 
@@ -52,9 +55,13 @@ Future<void> updatePresenceStatus(
       'presenceStatus': online ? 'online' : null,
     });
 
-    print('Updated presence status to $presenceStatus for user $logInUserId');
+    if (kDebugMode) {
+      print('Updated presence status to $presenceStatus for user $logInUserId');
+    }
   } catch (e) {
-    print('Failed to update presence status: $e');
+    if (kDebugMode) {
+      print('Failed to update presence status: $e');
+    }
   }
 }
 
@@ -63,7 +70,9 @@ void listenToPresenceStatus(String userId) {
     final data = event.snapshot.value as Map<dynamic, dynamic>?;
     if (data != null) {
       final presenceStatus = data['presenceStatus'] as String?;
-      print('User $userId is $presenceStatus');
+      if (kDebugMode) {
+        print('User $userId is $presenceStatus');
+      }
     }
   });
 }
@@ -86,7 +95,9 @@ void listenToUserRoomChanges(
   database.child('users/$userId/roomId').onValue.listen((event) {
     if (event.snapshot.value != null && event.snapshot.value is String) {
       String roomId = event.snapshot.value as String;
-      print('Room ID changed to: $roomId');
+      if (kDebugMode) {
+        print('Room ID changed to: $roomId');
+      }
       cubit.onRoomIdChange(roomId);
     } else {
       cubit.onRoomIdNull();

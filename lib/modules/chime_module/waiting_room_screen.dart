@@ -7,7 +7,6 @@ import 'package:whereby_app/modules/chime_module/connection_screen.dart';
 import 'package:whereby_app/modules/chime_module/chime_cubit/chime_cubit.dart';
 import 'package:whereby_app/modules/chime_module/chime_cubit/chime_state.dart';
 import 'package:whereby_app/modules/home_module/home_cubit/home_cubit.dart';
-import 'package:whereby_app/widgets/app_button.dart';
 
 class WaitingRoomScreen extends StatefulWidget {
   const WaitingRoomScreen({super.key});
@@ -32,8 +31,7 @@ class _MeetingScreenState extends State<WaitingRoomScreen> {
   void startTimer() {
     final state = context.read<HomeCubit>().state;
     if (state.meetingTime == null) return;
-    var countdownDuration = state.meetingTime;
-    duration = countdownDuration;
+    duration = state.meetingTime!;
     timer =
         Timer.periodic(const Duration(seconds: 1), (_) => updateCountdown());
   }
@@ -76,93 +74,15 @@ class _MeetingScreenState extends State<WaitingRoomScreen> {
             bottom: false,
             child: Scaffold(
               backgroundColor: const Color.fromARGB(31, 200, 199, 199),
-              appBar: AppBar(
-                backgroundColor: Colors.white,
-                toolbarHeight: 60,
-                leadingWidth: 80,
-                leading: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Image.asset(
-                    'assets/png/logo_app_bar.png',
-                  ),
-                ),
-                actions: [
-                  IconButton(
-                    icon: SvgPicture.asset(
-                      'assets/svg/menu.svg',
-                    ),
-                    onPressed: () {},
-                  ),
-                ],
-                bottom: PreferredSize(
-                  preferredSize: const Size.fromHeight(2.0),
-                  child: Container(
-                    color: ColorConstants.borderLine,
-                    height: 1.0,
-                  ),
-                ),
-              ),
+              appBar: _buildAppBar(),
               body: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 0.0),
                 child: Center(
                   child: state.isLoading
                       ? const CircularProgressIndicator()
                       : _errorMessage.isNotEmpty
-                          ? Text(
-                              _errorMessage,
-                              style: const TextStyle(
-                                  color: Colors.red, fontSize: 18),
-                            )
-                          : Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Spacer(),
-                                const Text(
-                                  'Next speaking session\nstarts in:',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 24,
-                                    color: Colors.black54,
-                                  ),
-                                ),
-                                const SizedBox(height: 20),
-                                Text(
-                                  formatDuration(duration),
-                                  style: const TextStyle(
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                const Spacer(),
-                                const SizedBox(height: 40),
-                                ElevatedButton(
-                                  onPressed: () {
-                                    context
-                                        .read<WaitingRoomCubit>()
-                                        .deleteUserFromRoom();
-                                    Navigator.pop(context);
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.black,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(30),
-                                    ),
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 40, vertical: 10),
-                                  ),
-                                  child: const Text(
-                                    'Back to main',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 50),
-                              ],
-                            ),
+                          ? _buildErrorMessage()
+                          : _buildContent(state),
                 ),
               ),
             ),
@@ -171,18 +91,108 @@ class _MeetingScreenState extends State<WaitingRoomScreen> {
       ),
     );
   }
-}
 
-void _handleRoomIdChange(BuildContext context, WaitingRoomState state) {
-  if (state.meetingData != null &&
-      state.attendeeData != null &&
-      state.readyForCall) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => ConnectionScreen(),
+  AppBar _buildAppBar() {
+    return AppBar(
+      backgroundColor: Colors.white,
+      toolbarHeight: 60,
+      leadingWidth: 80,
+      leading: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Image.asset(
+          'assets/png/logo_app_bar.png',
         ),
-      );
-    });
+      ),
+      actions: [
+        IconButton(
+          icon: SvgPicture.asset(
+            'assets/svg/menu.svg',
+          ),
+          onPressed: () {},
+        ),
+      ],
+      bottom: PreferredSize(
+        preferredSize: const Size.fromHeight(2.0),
+        child: Container(
+          color: ColorConstants.borderLine,
+          height: 1.0,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildErrorMessage() {
+    return Text(
+      _errorMessage,
+      style: const TextStyle(color: Colors.red, fontSize: 18),
+    );
+  }
+
+  Widget _buildContent(WaitingRoomState state) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Spacer(),
+        const Text(
+          'Next speaking session\nstarts in:',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 24,
+            color: Colors.black54,
+          ),
+        ),
+        const SizedBox(height: 20),
+        Text(
+          formatDuration(duration),
+          style: const TextStyle(
+            fontSize: 28,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+        const Spacer(),
+        const SizedBox(height: 40),
+        _buildBackToMainButton(),
+        const SizedBox(height: 50),
+      ],
+    );
+  }
+
+  ElevatedButton _buildBackToMainButton() {
+    return ElevatedButton(
+      onPressed: () {
+        context.read<WaitingRoomCubit>().deleteUserFromRoom();
+        Navigator.pop(context);
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.black,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+      ),
+      child: const Text(
+        'Back to main',
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
+
+  void _handleRoomIdChange(BuildContext context, WaitingRoomState state) {
+    if (state.meetingData != null &&
+        state.attendeeData != null &&
+        state.readyForCall) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => ConnectionScreen(),
+          ),
+        );
+      });
+    }
   }
 }
